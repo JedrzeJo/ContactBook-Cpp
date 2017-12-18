@@ -1,6 +1,7 @@
 #include "AllHeaders.h"
-int menu();											//klasa email do poprawy
-Person T[1000];										//domyslny nr tel ustawic
+int menu();											
+Person T[1000];	
+void validate(istream&, int);								
 													
 
 int main(){
@@ -30,6 +31,7 @@ int menu()
 	cout << "Quit - type 0" << endl;
 	int a, nr;
 	cin >> a;
+	validate(cin, a);
 	if (a == 0) { return 0; }
 	else if (a == 1) 
 	{
@@ -40,6 +42,7 @@ int menu()
 					cout << "Would You like to set some additional informations about that contact now?: \n"
 						"1.No \n2.Yes " << endl;
 					cin >> nr;
+					validate(cin, nr);
 			
 							switch (nr) {						
 							case 1:
@@ -51,6 +54,7 @@ int menu()
 									cout << "     1.Job \n     2.Contact data \n     3.Birthday Date \n     4.Exit " << endl;
 									int local;
 									cin >> local;
+									validate(cin, local);
 									switch (local) {
 									case 1:
 										T[licznik].SetJobDetails();
@@ -89,6 +93,7 @@ int menu()
 			cout << "Would you like to manage Your contacts : \n"
 				"1.No \n2.Yes " << endl;
 			cin >> nr;
+			validate(cin, nr);
 			switch (nr) {
 			case 1:
 				break;
@@ -98,6 +103,7 @@ int menu()
 					cout << "Type Contact No: " << endl;
 					int local;
 					cin >> local;
+					validate(cin, local);
 					local--;
 							if(local>=0 && local<licznik)
 							{
@@ -105,6 +111,7 @@ int menu()
 									<< endl;
 								int a;
 								cin >> a;
+								validate(cin, a);
 											if (a == 2) 
 											{
 												cout << endl;
@@ -123,6 +130,7 @@ int menu()
 															"4)Edit contact data.\n5)Edit Job details\n6)Return to main menu." << endl;
 														int a;
 														cin >> a;
+														validate(cin, a);
 														if (a == 1) { T[local].setName(); }
 														else if (a == 2) { T[local].setSurname(); }
 														else if (a == 3) { T[local].SetDate(); }
@@ -150,4 +158,15 @@ int menu()
 			return a;
 	}
 	else { return a; }
+}
+
+void validate(istream& stream, int a)
+{
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(100, '\n');
+		cout << "Bad entry. Enter a number: ";
+		cin >> a;
+	}
 }
