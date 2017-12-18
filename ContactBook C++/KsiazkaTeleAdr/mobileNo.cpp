@@ -3,7 +3,7 @@
 
 mobileNo::mobileNo()
 {
-	//this->number = '999 999 999';
+	this->number[0] = "999 999 999";
 }
 
 void mobileNo::setMobile()
